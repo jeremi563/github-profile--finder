@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Profile Finder Pro</title>
+  <link rel="stylesheet" href="./github.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="form">
+    <!-- Search Section -->
+    <div class="search-section">
+      <input type="text" placeholder="Enter GitHub username" id="username-input" aria-label="GitHub username">
+      <button id="search-btn" aria-label="Search GitHub user">Search</button>
+    </div>
+
+    <!-- Searching Animation -->
+    <div class="searching" id="searching" style="display: none;">
+      <div class="spinner"></div>
+      <p>Searching...</p>
+    </div>
+
+    <!-- Error Message -->
+    <p id="error-msg" class="error-msg"></p>
+
+    <!-- Profile Details Card -->
+    <div class="details">
+      <div class="user-image">
+        <img src="" alt="User Avatar" id="avatar">
+      </div>
+      <div class="info">
+        <div class="info-item">
+          <h1>Username</h1>
+          <p id="username">-</p>
+        </div>
+        <div class="info-item">
+          <h1>Repos</h1>
+          <p id="repos">-</p>
+        </div>
+        <div class="info-item">
+          <h1>Followers</h1>
+          <p id="followers">-</p>
+        </div>
+        <div class="info-item">
+          <h1>Following</h1>
+          <p id="following">-</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges / Highlights -->
+    <div class="badges">
+      <div class="badge-item">
+        <h1>Total Stars</h1>
+        <p id="total-stars">-</p>
+      </div>
+      <div class="badge-item">
+        <h1>Total Forks</h1>
+        <p id="total-forks">-</p>
+      </div>
+    </div>
+
+    <!-- Top Repos -->
+    <div class="top-repos">
+      <h1>Top Repositories</h1>
+      <div id="repos-list" class="repos-list"></div>
+    </div>
+
+    <!-- Languages Chart -->
+    <div class="language-chart">
+      <h1>Languages Used</h1>
+      <canvas id="languageChart" height="200"></canvas>
+    </div>
+
+    <!-- Other Details -->
+    <div class="other-details">
+      <div class="detail-item">
+        <h1>Company</h1>
+        <p id="company">-</p>
+      </div>
+      <div class="detail-item">
+        <h1>Location</h1>
+        <p id="location">-</p>
+      </div>
+      <div class="detail-item">
+        <h1>Bio</h1>
+        <p id="bio">-</p>
+      </div>
+    </div>
+
+    <!-- User Profile Link -->
+    <div class="user-link">
+      <a id="profile-link" href="#" target="_blank" rel="noopener noreferrer">
+        <button>Visit Profile</button>
+      </a>
+    </div>
+    <!-- Footer -->
+<div class="footer">
+  <p>Developed by Jeremia Obed &copy; 2026</p>
+</div>
+  </div>
+
+  <script src="./github.js"></script>
+</body>
+</html>
