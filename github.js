@@ -22,6 +22,16 @@ let languageChart = null;
 // Fallback avatar
 const fallbackAvatar = "https://avatars.githubusercontent.com/u/583231?v=4";
 
+// ⭐ Senior dev helper → sanitize username
+function sanitizeUsername(value){
+  return value.trim().replace(/\s+/g, "");
+}
+
+// ⭐ Remove spaces LIVE while typing (UX improvement)
+usernameInput.addEventListener("input", () => {
+  usernameInput.value = sanitizeUsername(usernameInput.value);
+});
+
 // Fade helpers
 function showData(elements) {
   elements.forEach(el => el.style.opacity = 1);
@@ -66,30 +76,24 @@ async function getUsers(user) {
     const resRepos = await fetch(`https://api.github.com/users/${user}/repos?sort=pushed&per_page=10`);
     const reposData = await resRepos.json();
 
-    // Update avatar
     avatarImg.src = dataUser.avatar_url || fallbackAvatar;
 
-    // Update main details
     usernameText.textContent = dataUser.login || "-";
     reposText.textContent = dataUser.public_repos ?? "-";
     followersText.textContent = dataUser.followers ?? "-";
     followingText.textContent = dataUser.following ?? "-";
 
-    // Other details
     companyText.textContent = dataUser.company || "-";
     locationText.textContent = dataUser.location || "-";
     bioText.textContent = dataUser.bio || "-";
 
-    // Profile link
     profileLink.href = dataUser.html_url || "#";
 
-    // Badges
     const totalStars = reposData.reduce((sum, r) => sum + r.stargazers_count, 0);
     const totalForks = reposData.reduce((sum, r) => sum + r.forks_count, 0);
     totalStarsText.textContent = totalStars;
     totalForksText.textContent = totalForks;
 
-    // Top repos
     reposData.slice(0, 5).forEach(repo => {
       const card = document.createElement("div");
       card.classList.add("repo-card");
@@ -100,7 +104,6 @@ async function getUsers(user) {
       reposList.appendChild(card);
     });
 
-    // Language Chart
     const langStats = getLanguageStats(reposData);
     const labels = Object.keys(langStats);
     const data = Object.values(langStats);
@@ -155,13 +158,25 @@ async function getUsers(user) {
 
 // Event listeners
 searchBtn.addEventListener("click", () => {
-  const user = usernameInput.value.trim();
+  const user = sanitizeUsername(usernameInput.value);
+
+  if(!user){
+    alert("Please enter a GitHub username");
+    return;
+  }
+
   getUsers(user);
 });
 
 usernameInput.addEventListener("keydown", (e) => {
   if(e.key === "Enter"){
-    const user = usernameInput.value.trim();
+    const user = sanitizeUsername(usernameInput.value);
+
+    if(!user){
+      alert("Please enter a GitHub username");
+      return;
+    }
+
     getUsers(user);
   }
 });
